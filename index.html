@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>歴史総合 1学期期末対策(帝国書院 p.37-54範囲)</title>
+<style>
+  :root {
+    --bg: #f4f1ea;
+    --card: #ffffff;
+    --ink: #2b2b2b;
+    --accent: #8b2635;
+    --accent2: #1f4e5f;
+    --ok: #2e7d32;
+    --ng: #c62828;
+    --half: #e08600;
+    --line: #ddd5c8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0 12px 60px;
+    background: var(--bg); color: var(--ink);
+    font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+    line-height: 1.7;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  header {
+    text-align: center; padding: 24px 8px 8px;
+  }
+  header h1 { font-size: 1.25rem; margin: 0; color: var(--accent); }
+  header p { margin: 4px 0 0; font-size: .8rem; color: #777; }
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; padding: 18px; margin: 14px 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,.05);
+  }
+  h2 { font-size: 1.05rem; margin: 0 0 10px; color: var(--accent2); border-left: 4px solid var(--accent); padding-left: 8px; }
+  label.chk {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px;
+    margin: 6px 0; cursor: pointer; background: #fbfaf7;
+  }
+  label.chk input { transform: scale(1.2); }
+  select, input[type=text], textarea {
+    font-size: 1rem; padding: 10px; border: 1px solid var(--line);
+    border-radius: 8px; width: 100%; font-family: inherit;
+  }
+  textarea { min-height: 110px; resize: vertical; }
+  button {
+    font-size: 1rem; font-family: inherit; cursor: pointer;
+    border: none; border-radius: 10px; padding: 12px 18px;
+  }
+  .btn-main { background: var(--accent); color: #fff; width: 100%; font-weight: bold; letter-spacing: .1em; }
+  .btn-main:active { opacity: .8; }
+  .btn-sub { background: var(--accent2); color: #fff; }
+  .btn-ghost { background: #eee7da; color: var(--ink); }
+  .choice-btn {
+    display: block; width: 100%; text-align: left;
+    background: #fbfaf7; border: 1.5px solid var(--line);
+    margin: 8px 0; padding: 12px 14px; border-radius: 10px;
+  }
+  .choice-btn:not(:disabled):hover { border-color: var(--accent2); }
+  .choice-btn.correct { background: #e6f4e6; border-color: var(--ok); font-weight: bold; }
+  .choice-btn.wrong { background: #fde8e8; border-color: var(--ng); }
+  .tag {
+    display: inline-block; font-size: .72rem; padding: 2px 10px;
+    border-radius: 999px; color: #fff; margin-right: 6px; vertical-align: middle;
+  }
+  .tag-unit { background: var(--accent2); }
+  .tag-type { background: #8a7a5c; }
+  .progress-outer { background: #e5ddce; border-radius: 999px; height: 8px; margin: 10px 0; }
+  .progress-inner { background: var(--accent); height: 8px; border-radius: 999px; transition: width .3s; }
+  .qtext { font-size: 1.05rem; font-weight: bold; margin: 10px 0 14px; }
+  .feedback { border-radius: 10px; padding: 12px 14px; margin-top: 12px; font-size: .95rem; }
+  .feedback.ok { background: #e6f4e6; border: 1px solid var(--ok); }
+  .feedback.ng { background: #fde8e8; border: 1px solid var(--ng); }
+  .feedback .verdict { font-weight: bold; font-size: 1.1rem; }
+  .feedback .exp { margin-top: 6px; border-top: 1px dashed #bbb; padding-top: 6px; }
+  .order-pool button, .order-picked span {
+    display: block; width: 100%; text-align: left; margin: 6px 0;
+  }
+  .order-picked span {
+    background: #eef4f6; border: 1.5px solid var(--accent2);
+    border-radius: 10px; padding: 10px 14px; font-size: .95rem;
+  }
+  .score-big { font-size: 2.4rem; font-weight: bold; text-align: center; color: var(--accent); margin: 8px 0; }
+  .bar-row { display: flex; align-items: center; gap: 8px; margin: 6px 0; font-size: .85rem; }
+  .bar-label { width: 11em; flex-shrink: 0; }
+  .bar-outer { flex: 1; background: #e5ddce; border-radius: 999px; height: 14px; }
+  .bar-inner { background: var(--accent2); height: 14px; border-radius: 999px; }
+  .bar-pct { width: 3.5em; text-align: right; }
+  .wrong-item { border-bottom: 1px dashed var(--line); padding: 10px 0; font-size: .9rem; }
+  .wrong-item .wq { font-weight: bold; }
+  .wrong-item .wa { color: var(--ok); }
+  .history-item { font-size: .85rem; color: #666; padding: 3px 0; }
+  .grade-btns { display: flex; gap: 8px; margin-top: 10px; }
+  .grade-btns button { flex: 1; color: #fff; font-weight: bold; }
+  .g-ok { background: var(--ok); } .g-half { background: var(--half); } .g-ng { background: var(--ng); }
+  .model-box { background: #fbf6e9; border: 1px solid #d9c98f; border-radius: 10px; padding: 12px 14px; margin-top: 12px; font-size: .95rem; }
+  .model-box .mh { font-weight: bold; color: #8a6d1a; }
+  .num { font-size: .85rem; color: #777; }
+  .footer-note { font-size: .75rem; color: #999; text-align: center; margin-top: 24px; }
+  .nextbar { margin-top: 14px; }
+  @media (min-width: 600px) { header h1 { font-size: 1.5rem; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>歴史総合 1学期期末対策</h1>
+    <p>帝国書院 教科書ガイド p.37–54 範囲/産業革命・市民革命・国民国家・アジアの変容と日本の開国</p>
+  </header>
+
+  <div id="screen-start"></div>
+  <div id="screen-quiz" style="display:none"></div>
+  <div id="screen-result" style="display:none"></div>
+
+  <p class="footer-note">解答・解説は一般的な高校歴史総合の学習内容に基づいて作成しています。<br>教科書ガイドの記述と照らし合わせて確認してください。</p>
+</div>
+
+<script>
+"use strict";
+
+/* =========================================================
+   問題バンク
+   unit: industrial(産業革命) / revolution(市民革命) /
+         nation(国民国家) / asia(アジアと日本の開国)
+   type: choice(4択・正誤) / term(一問一答) /
+         order(年代整序) / essay(記述)
+   ========================================================= */
+const UNITS = {
+  industrial: "産業革命・工業化",
+  revolution: "市民革命",
+  nation: "国民国家・ナショナリズム",
+  asia: "アジアの変容・日本の開国",
+};
+const TYPES = {
+  choice: "4択・正誤",
+  term: "一問一答",
+  order: "年代整序",
+  essay: "記述",
+};
+
+const QUESTIONS = [
+
+/* ---------- 産業革命・工業化 ---------- */
+{ unit:"industrial", type:"choice",
+  q:"18世紀後半、世界で最初に産業革命が始まった国はどこか。",
+  choices:["イギリス","フランス","ドイツ","アメリカ"], answer:0,
+  exp:"イギリスは、広大な植民地(市場)、大西洋貿易で蓄えた資本、豊富な石炭・鉄などの資源、囲い込みで生まれた労働力がそろっていたため、最初に産業革命が起こった。この4条件は記述でも頻出。" },
+{ unit:"industrial", type:"choice",
+  q:"蒸気機関を改良し、工場の動力として実用化させた人物は誰か。",
+  choices:["ワット","スティーヴンソン","フルトン","アークライト"], answer:0,
+  exp:"ワットが蒸気機関を改良。スティーヴンソンは蒸気機関車、フルトンは蒸気船、アークライトは水力紡績機。人物と発明の組み合わせの入れ替え問題は定番。" },
+{ unit:"industrial", type:"choice",
+  q:"1825年に蒸気機関車の実用化に成功した人物は誰か。",
+  choices:["スティーヴンソン","ワット","カートライト","ジョン=ケイ"], answer:0,
+  exp:"スティーヴンソンの蒸気機関車により鉄道時代が始まり、人・モノの移動が激変した(交通革命)。カートライトは力織機、ジョン=ケイは飛び杼。" },
+{ unit:"industrial", type:"choice",
+  q:"産業革命後、世界中に工業製品を輸出したイギリスは何と呼ばれたか。",
+  choices:["「世界の工場」","「太陽の沈まぬ国」","「海の王者」","「ヨーロッパの火薬庫」"], answer:0,
+  exp:"「世界の工場」はイギリスの圧倒的な工業力を示す言葉。安い綿製品が世界に輸出され、インドなどの伝統的な手工業は打撃を受けた。" },
+{ unit:"industrial", type:"choice",
+  q:"産業革命期のイギリスで、失業をおそれた手工業者らが機械を打ちこわした運動を何というか。",
+  choices:["ラダイト運動","チャーティスト運動","囲い込み","ラッダール運動"], answer:0,
+  exp:"ラダイト運動(機械打ちこわし運動)。機械の導入で職を失うことへの抵抗。チャーティスト運動は労働者が選挙権を求めた運動なので区別すること。" },
+{ unit:"industrial", type:"choice",
+  q:"産業革命に関する説明として<u>誤っているもの</u>を選べ。",
+  choices:[
+    "産業革命はフランスの絹織物業から始まった",
+    "工場で働く労働者には女性や子どもも多く、長時間労働が問題になった",
+    "資本家が労働者を雇って生産する資本主義のしくみが確立した",
+    "イギリスでは労働者を保護する工場法が制定された"],
+  answer:0,
+  exp:"産業革命はイギリスの綿工業(綿織物業)から始まった。「どの国の・何の工業から始まったか」は正誤問題の狙われどころ。" },
+{ unit:"industrial", type:"term",
+  q:"ハーグリーヴズが発明した、一度に多くの糸をつむげる紡績機を何というか。",
+  answers:["ジェニー紡績機","多軸紡績機"],
+  exp:"ジェニー紡績機(多軸紡績機)。発明の流れ:飛び杼(ジョン=ケイ)→ジェニー紡績機(ハーグリーヴズ)→水力紡績機(アークライト)→ミュール紡績機(クロンプトン)→力織機(カートライト)。" },
+{ unit:"industrial", type:"term",
+  q:"産業革命期のイギリスで綿工業の中心として急成長した都市はどこか。",
+  answers:["マンチェスター"],
+  exp:"マンチェスターは綿工業都市、その外港リヴァプールは貿易港として発展。2都市はセットで覚える。世界初の営業鉄道もこの2都市間などで開通した。" },
+{ unit:"industrial", type:"term",
+  q:"児童労働の制限など、労働者を保護するためにイギリスで制定された法律を何というか。",
+  answers:["工場法"],
+  exp:"工場法。長時間労働・児童労働などの労働問題への対応として制定された。労働組合の結成と合わせて社会問題への対策として問われる。" },
+{ unit:"industrial", type:"term",
+  q:"資本家が労働者を雇い、利益(利潤)を目的に生産を行う経済のしくみを何というか。",
+  answers:["資本主義","資本主義体制","資本主義経済"],
+  exp:"資本主義。資本家と労働者という2つの階級が生まれ、貧富の差の拡大から社会主義思想(オーウェン、マルクスら)が登場した流れまで押さえる。" },
+{ unit:"industrial", type:"order",
+  q:"産業革命に関するできごとを、古い順に並べよ。",
+  events:[
+    "ジョン=ケイが飛び杼を発明する",
+    "ハーグリーヴズがジェニー紡績機を発明する",
+    "ワットが蒸気機関を改良する",
+    "スティーヴンソンが蒸気機関車を実用化する"],
+  exp:"飛び杼(1733)→ジェニー紡績機(1764頃)→ワットの蒸気機関改良(1769)→蒸気機関車実用化(1825)。「織る技術が先に進歩→糸不足→紡績機の発明ラッシュ」という因果で覚える。" },
+{ unit:"industrial", type:"essay",
+  q:"産業革命が世界で最初にイギリスで起こった理由を、「市場」「資本」「資源」「労働力」の語を用いて説明せよ。",
+  model:"イギリスは、植民地という広大な市場をもち、大西洋の三角貿易などで豊かな資本を蓄積していた。さらに国内に石炭・鉄鉱石などの資源が豊富で、囲い込みによって土地を失った農民が工場の労働力となったため、世界で最初に産業革命が起こった。",
+  points:["市場(植民地)","資本の蓄積(貿易)","資源(石炭・鉄)","労働力(囲い込み)"],
+  exp:"4つの条件を全部入れられるかがポイント。定期試験の記述で最頻出のテーマ。" },
+{ unit:"industrial", type:"essay",
+  q:"産業革命によって生まれた「資本主義」とはどのようなしくみか。「資本家」「労働者」の語を用いて説明せよ。",
+  model:"工場や機械などの生産手段をもつ資本家が、賃金を払って労働者を雇い、利益(利潤)を目的に商品を生産する経済のしくみ。",
+  points:["資本家が生産手段をもつ","労働者を雇う(賃金)","利益を目的に生産"],
+  exp:"あわせて「貧富の差の拡大→社会主義思想の登場」まで書ければ完璧。" },
+
+/* ---------- 市民革命 ---------- */
+{ unit:"revolution", type:"choice",
+  q:"「代表なくして課税なし」という抗議は、イギリスのどの政策に対して起こったものか。",
+  choices:["印紙法","茶法","航海法","穀物法"], answer:0,
+  exp:"1765年の印紙法に対して植民地側は「本国議会に代表を送っていないのに課税されるのは不当だ」と抗議した。その後の茶法→ボストン茶会事件(1773)への流れも重要。" },
+{ unit:"revolution", type:"choice",
+  q:"1776年に発表されたアメリカ独立宣言の起草の中心となった人物は誰か。",
+  choices:["ジェファソン","ワシントン","フランクリン","リンカン"], answer:0,
+  exp:"トマス=ジェファソンが起草の中心。独立宣言はロックの思想の影響を受け、基本的人権・革命権(抵抗権)をうたった。ワシントンは独立軍総司令官で初代大統領。" },
+{ unit:"revolution", type:"choice",
+  q:"1787年に制定されたアメリカ合衆国憲法の特色として正しいものを選べ。",
+  choices:[
+    "三権分立と連邦制を採用した",
+    "国王に強い権限を与えた",
+    "奴隷制を直ちに廃止した",
+    "女性を含む普通選挙を定めた"],
+  answer:0,
+  exp:"合衆国憲法は世界初の近代的成文憲法で、三権分立・連邦制・大統領制が特色。奴隷制はこの時点では残された(南北戦争まで続く)点に注意。" },
+{ unit:"revolution", type:"choice",
+  q:"1789年7月14日、フランス革命の発端となったできごとは何か。",
+  choices:["バスティーユ牢獄の襲撃","ルイ16世の処刑","三部会の招集","ヴェルサイユ行進"], answer:0,
+  exp:"パリの民衆によるバスティーユ牢獄襲撃が革命の始まり。流れは「三部会招集→国民議会の成立→バスティーユ襲撃→人権宣言」。順序の入れ替えに注意。" },
+{ unit:"revolution", type:"choice",
+  q:"フランス人権宣言の内容として<u>誤っているもの</u>を選べ。",
+  choices:[
+    "国王の権力は神から与えられたものとした",
+    "人間の自由・平等をうたった",
+    "主権が国民にあることを示した",
+    "私有財産の不可侵を定めた"],
+  answer:0,
+  exp:"「王権神授説」は旧体制(アンシャン=レジーム)の考え方で、人権宣言はそれを否定した側。自由・平等、国民主権、私有財産の不可侵の3点セットで覚える。" },
+{ unit:"revolution", type:"choice",
+  q:"ナポレオンに関する説明として<u>誤っているもの</u>を選べ。",
+  choices:[
+    "ロシア遠征に成功し、ヨーロッパ全土を統一した",
+    "国民投票を経て1804年に皇帝に即位した",
+    "法の前の平等などを定めたナポレオン法典を制定した",
+    "大陸封鎖令を出してイギリスと大陸諸国の貿易を禁じた"],
+  answer:0,
+  exp:"ロシア遠征(1812)は大失敗し、これがナポレオン没落のきっかけとなった。「成功」とあれば誤り。最後はワーテルローの戦い(1815)で敗北。" },
+{ unit:"revolution", type:"term",
+  q:"フランス革命前の、聖職者・貴族が特権をもつ古い身分制社会を何というか。",
+  answers:["旧体制","アンシャン=レジーム","アンシャンレジーム","旧制度"],
+  exp:"旧体制(アンシャン=レジーム)。第一身分(聖職者)・第二身分(貴族)は免税特権をもち、人口の大多数の第三身分(平民)が税を負担していた。" },
+{ unit:"revolution", type:"term",
+  q:"アメリカ合衆国の初代大統領に就任した人物は誰か。",
+  answers:["ワシントン","ジョージ=ワシントン","ジョージワシントン"],
+  exp:"ワシントン。独立戦争の総司令官→初代大統領。「宣言起草=ジェファソン/総司令官・初代大統領=ワシントン」の役割の区別が頻出。" },
+{ unit:"revolution", type:"term",
+  q:"フランス革命で恐怖政治を行った、ジャコバン派の指導者は誰か。",
+  answers:["ロベスピエール"],
+  exp:"ロベスピエール。反対派を次々処刑する恐怖政治を行ったが、1794年のテルミドールの反動(クーデタ)で処刑された。" },
+{ unit:"revolution", type:"term",
+  q:"1804年にナポレオンが制定した、法の前の平等・私有財産の不可侵などを定めた法典を何というか。",
+  answers:["ナポレオン法典","フランス民法典","民法典"],
+  exp:"ナポレオン法典(フランス民法典)。革命の成果を法として定着させ、のちの各国の民法に大きな影響を与えた。日本の民法にも影響。" },
+{ unit:"revolution", type:"order",
+  q:"アメリカ独立に関するできごとを、古い順に並べよ。",
+  events:[
+    "印紙法が制定される",
+    "ボストン茶会事件が起こる",
+    "独立宣言が発表される",
+    "合衆国憲法が制定される"],
+  exp:"印紙法(1765)→ボストン茶会事件(1773)→独立宣言(1776)→合衆国憲法(1787)。「課税への反発→実力行使→独立→国家体制づくり」という因果の流れで覚える。" },
+{ unit:"revolution", type:"order",
+  q:"フランス革命からナポレオン時代のできごとを、古い順に並べよ。",
+  events:[
+    "バスティーユ牢獄が襲撃される",
+    "ルイ16世が処刑される",
+    "ナポレオンが皇帝に即位する",
+    "ワーテルローの戦いでナポレオンが敗れる"],
+  exp:"バスティーユ襲撃(1789)→ルイ16世処刑(1793)→ナポレオン皇帝即位(1804)→ワーテルロー(1815)。「革命勃発→王政廃止→ナポレオン登場→没落」の大きな流れ。" },
+{ unit:"revolution", type:"essay",
+  q:"アメリカ植民地の人々が「代表なくして課税なし」と主張した理由を説明せよ。",
+  model:"植民地はイギリス本国の議会に代表(議員)を送っていないのに、本国が印紙法などで一方的に課税するのは、議会の同意なく課税しないというイギリスの伝統に反し不当だと考えたから。",
+  points:["本国議会に代表を送っていない","一方的な課税","議会の同意なき課税は不当"],
+  exp:"「代表を送っていない=課税に同意する機会がない」という論理を自分の言葉で説明できるように。" },
+{ unit:"revolution", type:"essay",
+  q:"フランス人権宣言では、主権は誰にあるとされたか。旧体制との違いがわかるように説明せよ。",
+  model:"旧体制では国王が絶対的な権力をもっていたが、人権宣言では主権は国民にあるとされ(国民主権)、人間は生まれながらに自由・平等であることが宣言された。",
+  points:["旧体制=国王の絶対的権力","人権宣言=国民主権","自由・平等"],
+  exp:"「誰が国の主人か」が国王→国民へ転換した、というのが市民革命の核心。" },
+
+/* ---------- 国民国家・ナショナリズム ---------- */
+{ unit:"nation", type:"choice",
+  q:"ナポレオン戦争後のヨーロッパの秩序を話し合ったウィーン会議を主導した、オーストリアの外相は誰か。",
+  choices:["メッテルニヒ","ビスマルク","カヴール","タレーラン"], answer:0,
+  exp:"メッテルニヒ。ウィーン会議(1814〜15)では革命前の状態に戻す「正統主義」が原則とされ、自由主義・ナショナリズムをおさえこむウィーン体制が成立した。" },
+{ unit:"nation", type:"choice",
+  q:"ウィーン体制の基本原則で、フランス革命前の王朝や体制を正統とみなして復活させる考え方を何というか。",
+  choices:["正統主義","自由主義","社会主義","重商主義"], answer:0,
+  exp:"正統主義。革命とナポレオンがもたらした変化を「なかったこと」にしようとする原則。しかし1830年七月革命・1848年二月革命で体制は崩れていく。" },
+{ unit:"nation", type:"choice",
+  q:"「鉄血政策」により軍備を増強し、ドイツ統一を実現したプロイセンの首相は誰か。",
+  choices:["ビスマルク","メッテルニヒ","ヴィルヘルム1世","ガリバルディ"], answer:0,
+  exp:"ビスマルク。「現下の大問題は演説や多数決ではなく、鉄と血によって解決される」という演説から鉄血政策と呼ばれる。普墺戦争・普仏戦争に勝利し、1871年ドイツ帝国成立。" },
+{ unit:"nation", type:"choice",
+  q:"イタリア統一運動で、千人隊(赤シャツ隊)を率いて南イタリアを征服し、サルデーニャ国王に献上した人物は誰か。",
+  choices:["ガリバルディ","カヴール","マッツィーニ","ムッソリーニ"], answer:0,
+  exp:"ガリバルディ。首相カヴールが外交と戦争で北イタリアを、ガリバルディが南イタリアを制圧し、1861年イタリア王国が成立。「北のカヴール・南のガリバルディ」と整理。" },
+{ unit:"nation", type:"choice",
+  q:"アメリカ南北戦争中の1863年に奴隷解放宣言を出した大統領は誰か。",
+  choices:["リンカン","ワシントン","ジェファソン","モンロー"], answer:0,
+  exp:"リンカン。奴隷解放宣言で内外の支持を集め、北部が勝利。ゲティスバーグ演説の「人民の、人民による、人民のための政治」も頻出。" },
+{ unit:"nation", type:"choice",
+  q:"南北戦争前のアメリカ北部と南部の説明として<u>誤っているもの</u>を選べ。",
+  choices:[
+    "南部は工業が発達し、保護貿易を主張した",
+    "北部は商工業が発達し、奴隷制に反対した",
+    "南部は綿花のプランテーションが盛んで、奴隷制の存続を求めた",
+    "貿易政策と奴隷制をめぐる対立が戦争の背景となった"],
+  answer:0,
+  exp:"逆になっている。工業が発達し保護貿易を主張したのは北部。南部は綿花栽培中心で自由貿易・奴隷制存続を主張。北部と南部の特徴の入れ替えは正誤問題の超定番。" },
+{ unit:"nation", type:"term",
+  q:"クリミア戦争の敗北を受けて、1861年に農奴解放令を出したロシア皇帝は誰か。",
+  answers:["アレクサンドル2世","アレクサンドル二世"],
+  exp:"アレクサンドル2世。クリミア戦争(1853〜56)の敗北でロシアの後進性が明らかになり、近代化改革として農奴解放令を出した。「敗戦→改革」の因果で覚える。" },
+{ unit:"nation", type:"term",
+  q:"イタリア統一を外交面で主導した、サルデーニャ王国の首相は誰か。",
+  answers:["カヴール"],
+  exp:"カヴール。クリミア戦争に参戦して国際的地位を高め、フランスと結んでオーストリアと戦い北イタリアを統一した。" },
+{ unit:"nation", type:"term",
+  q:"1871年、プロイセン国王を皇帝としてヴェルサイユ宮殿で成立が宣言された国を何というか。",
+  answers:["ドイツ帝国"],
+  exp:"ドイツ帝国。普仏戦争に勝利した直後、あえて敵国フランスのヴェルサイユ宮殿で成立を宣言した。皇帝はヴィルヘルム1世。" },
+{ unit:"nation", type:"term",
+  q:"1848年、フランスの二月革命をきっかけにヨーロッパ各地に広がった革命の動きを何というか。",
+  answers:["諸国民の春","1848年革命","諸国民の春(1848年革命)"],
+  exp:"「諸国民の春」。ウィーンでも三月革命が起こりメッテルニヒが亡命、ウィーン体制は崩壊した。ナショナリズムが各地で高まったことを示すできごと。" },
+{ unit:"nation", type:"order",
+  q:"19世紀ヨーロッパ・アメリカのできごとを、古い順に並べよ。",
+  events:[
+    "ウィーン会議が開かれる",
+    "フランスで二月革命が起こる",
+    "イタリア王国が成立する",
+    "ドイツ帝国が成立する"],
+  exp:"ウィーン会議(1814〜15)→二月革命(1848)→イタリア王国成立(1861)→ドイツ帝国成立(1871)。「体制の成立→崩壊→国民国家の統一」という流れ。イタリアが先、ドイツが後。" },
+{ unit:"nation", type:"essay",
+  q:"ウィーン体制とはどのような体制か。「正統主義」「自由主義・ナショナリズム」の語を用いて説明せよ。",
+  model:"ウィーン会議で定められた、フランス革命前の王朝を正統として復活させる正統主義を原則とし、各国で高まる自由主義やナショナリズムの動きをおさえこもうとしたヨーロッパの国際秩序。",
+  points:["ウィーン会議で成立","正統主義(革命前に戻す)","自由主義・ナショナリズムの抑圧"],
+  exp:"「何を原則に」「何をおさえこんだか」の2点が採点ポイント。" },
+{ unit:"nation", type:"essay",
+  q:"南北戦争が起こった背景を、北部と南部の経済のちがいに触れて説明せよ。",
+  model:"商工業が発達し保護貿易と奴隷制反対を主張する北部と、綿花プランテーションが中心で自由貿易と奴隷制存続を主張する南部が対立し、奴隷制に反対するリンカンの大統領当選をきっかけに南部が連邦を離脱して内戦となった。",
+  points:["北部=商工業・保護貿易・奴隷制反対","南部=綿花プランテーション・自由貿易・奴隷制存続","リンカン当選が引き金"],
+  exp:"北部と南部の対比表を頭に入れて、対立軸(貿易政策と奴隷制)を明確に書く。" },
+
+/* ---------- アジアの変容・日本の開国 ---------- */
+{ unit:"asia", type:"choice",
+  q:"アヘン戦争の講和条約として1842年に結ばれた条約は何か。",
+  choices:["南京条約","北京条約","天津条約","下関条約"], answer:0,
+  exp:"南京条約。香港島の割譲、上海など5港の開港、賠償金の支払い、公行の廃止が内容。翌年の追加条約で領事裁判権を認め、関税自主権を失う不平等条約となった。北京条約はアロー戦争の講和。" },
+{ unit:"asia", type:"choice",
+  q:"19世紀の三角貿易で、イギリスがインドから清へ運んだものは何か。",
+  choices:["アヘン","茶","綿織物","銀"], answer:0,
+  exp:"イギリス→インド:綿織物/インド→清:アヘン/清→イギリス:茶。銀の流れとセットで図を描けるように。茶の代金として流出する銀を、アヘンで回収するのがイギリスの狙い。" },
+{ unit:"asia", type:"choice",
+  q:"1857年に始まったインド大反乱のきっかけをつくった、東インド会社のインド人傭兵を何というか。",
+  choices:["シパーヒー","マムルーク","イェニチェリ","クーリー"], answer:0,
+  exp:"シパーヒー。反乱鎮圧後、ムガル帝国は滅亡し東インド会社は解散、イギリスの直接統治となる。1877年にはヴィクトリア女王を皇帝とするインド帝国が成立。" },
+{ unit:"asia", type:"choice",
+  q:"1853年、4隻の軍艦を率いて浦賀に来航し、日本に開国を求めたアメリカの東インド艦隊司令長官は誰か。",
+  choices:["ペリー","ハリス","ビッドル","ラクスマン"], answer:0,
+  exp:"ペリー。翌1854年に日米和親条約を締結。ハリスは初代総領事で日米修好通商条約(1858)を結んだ相手。「和親=ペリー/修好通商=ハリス」の区別が頻出。" },
+{ unit:"asia", type:"choice",
+  q:"日米和親条約(1854年)で開港された2港の組み合わせとして正しいものを選べ。",
+  choices:["下田・箱館","神奈川・長崎","浦賀・横浜","新潟・兵庫"], answer:0,
+  exp:"和親条約は下田・箱館の2港。修好通商条約では神奈川(横浜)・長崎・新潟・兵庫(神戸)・箱館の5港。「2港と5港」を混同させる選択肢が定番。" },
+{ unit:"asia", type:"choice",
+  q:"日米修好通商条約に関する説明として<u>誤っているもの</u>を選べ。",
+  choices:[
+    "日本に関税自主権が認められた",
+    "大老井伊直弼が朝廷の勅許を得ないまま調印した",
+    "アメリカに領事裁判権を認めた",
+    "神奈川など5港を開港することを定めた"],
+  answer:0,
+  exp:"日本には関税自主権が「なかった」(協定関税制)。領事裁判権を認めた点と合わせて不平等条約の2本柱。勅許なしの調印が安政の大獄→桜田門外の変につながる流れも重要。" },
+{ unit:"asia", type:"term",
+  q:"清でアヘンを厳しく取り締まり、没収・処分してアヘン戦争のきっかけをつくった官僚は誰か。",
+  answers:["林則徐","りんそくじょ"],
+  exp:"林則徐。広州でアヘンを没収・廃棄したことにイギリスが反発し、アヘン戦争(1840〜42)が始まった。" },
+{ unit:"asia", type:"term",
+  q:"「滅満興漢」を唱えて1851年に太平天国の乱を起こした指導者は誰か。",
+  answers:["洪秀全","こうしゅうぜん"],
+  exp:"洪秀全。キリスト教の影響を受けた上帝会を組織し、清(満州人の王朝)を倒して漢人の国家をつくることを唱えた。アヘン戦争後の重税・社会不安が背景。" },
+{ unit:"asia", type:"term",
+  q:"1858年、日米修好通商条約に調印した江戸幕府の大老は誰か。",
+  answers:["井伊直弼","いいなおすけ"],
+  exp:"井伊直弼。勅許を得ずに調印し、反対派を安政の大獄で弾圧したため、1860年桜田門外の変で暗殺された。" },
+{ unit:"asia", type:"term",
+  q:"1867年、15代将軍徳川慶喜が政権を朝廷に返上したできごとを何というか。",
+  answers:["大政奉還","たいせいほうかん"],
+  exp:"大政奉還。直後に王政復古の大号令が出され、天皇中心の新政府が樹立された。「大政奉還(幕府側の行動)→王政復古(新政府側の行動)」の順序と主体を区別。" },
+{ unit:"asia", type:"term",
+  q:"1877年に成立した、イギリスのヴィクトリア女王を皇帝とする国を何というか。",
+  answers:["インド帝国"],
+  exp:"インド帝国。インド大反乱(1857)→ムガル帝国滅亡・東インド会社解散(1858)→インド帝国成立(1877)という直接統治への流れで覚える。" },
+{ unit:"asia", type:"order",
+  q:"19世紀の中国(清)に関するできごとを、古い順に並べよ。",
+  events:[
+    "アヘン戦争が始まる",
+    "南京条約が結ばれる",
+    "太平天国の乱が始まる",
+    "アロー戦争が始まる"],
+  exp:"アヘン戦争(1840)→南京条約(1842)→太平天国の乱(1851)→アロー戦争(1856)。「戦争→講和→内乱→さらなる侵略」という清の苦難の流れ。" },
+{ unit:"asia", type:"order",
+  q:"幕末の日本のできごとを、古い順に並べよ。",
+  events:[
+    "ペリーが浦賀に来航する",
+    "日米修好通商条約が結ばれる",
+    "桜田門外の変が起こる",
+    "大政奉還が行われる"],
+  exp:"ペリー来航(1853)→日米修好通商条約(1858)→桜田門外の変(1860)→大政奉還(1867)。開国→条約→反発と暗殺→幕府の終わり、という因果の連鎖で整理。" },
+{ unit:"asia", type:"essay",
+  q:"イギリス・インド・清の三角貿易のしくみを、「茶」「綿織物」「アヘン」の語を用いて説明せよ。",
+  model:"イギリスは清から大量の茶を輸入して銀が流出していたため、インドに綿織物を輸出し、インドで栽培したアヘンを清に密輸して銀を回収する三角貿易を行った。",
+  points:["清→イギリス:茶(銀の流出)","イギリス→インド:綿織物","インド→清:アヘン(銀の回収)"],
+  exp:"「銀の流れ」を軸に3つの矢印を説明できるかがポイント。図示問題でも出る。" },
+{ unit:"asia", type:"essay",
+  q:"日米修好通商条約が「不平等条約」と呼ばれる理由を2点あげて説明せよ。",
+  model:"アメリカに領事裁判権を認め、日本で罪を犯した外国人を日本の法律で裁けなかったこと、また日本に関税自主権がなく、輸入品の関税率を自主的に決められなかったことの2点で、日本に不利な条約だったから。",
+  points:["領事裁判権を認めた","関税自主権がない"],
+  exp:"2つの用語を書くだけでなく「それぞれ何ができないのか」まで説明できると満点。明治政府の条約改正交渉につながる伏線。" },
+{ unit:"asia", type:"essay",
+  q:"ペリー来航後、江戸幕府の権威が低下していった理由を、日米修好通商条約の結ばれ方に触れて説明せよ。",
+  model:"幕府が朝廷の勅許を得ないまま日米修好通商条約に調印したため、天皇を尊び外国勢力を排除しようとする尊王攘夷運動が高まり、幕府への批判が強まって権威が低下した。",
+  points:["勅許を得ずに調印","尊王攘夷運動の高まり","幕府批判の強まり"],
+  exp:"「無勅許調印」→「尊王攘夷」→「倒幕へ」という因果の鎖を書けるように。" },
+];
+
+/* =========================================================
+   アプリ本体
+   ========================================================= */
+const $ = (id) => document.getElementById(id);
+const LS_KEY = "rekishi_sougou_kimatsu_v1";
+
+let quiz = [];        // 出題中の問題配列
+let idx = 0;          // 現在の問題番号
+let results = [];     // {q, score(0/0.5/1), userAns}
+let orderPick = [];   // 整序問題の選択状態
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function esc(s) {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+/* ---------- スタート画面 ---------- */
+function renderStart() {
+  const hist = loadHistory();
+  const histHtml = hist.length
+    ? `<div class="card"><h2>これまでの成績</h2>` +
+      hist.slice(-5).reverse().map(h =>
+        `<div class="history-item">${h.date} … ${h.score}/${h.total}点 (${h.pct}%)</div>`).join("") +
+      `</div>`
+    : "";
+
+  $("screen-start").innerHTML = `
+    <div class="card">
+      <h2>出題範囲(単元)</h2>
+      ${Object.entries(UNITS).map(([k, v]) =>
+        `<label class="chk"><input type="checkbox" class="u-chk" value="${k}" checked>${v}</label>`).join("")}
+    </div>
+    <div class="card">
+      <h2>問題形式</h2>
+      ${Object.entries(TYPES).map(([k, v]) =>
+        `<label class="chk"><input type="checkbox" class="t-chk" value="${k}" checked>${v}</label>`).join("")}
+    </div>
+    <div class="card">
+      <h2>問題数</h2>
+      <select id="q-count">
+        <option value="10">10問(すきま時間用)</option>
+        <option value="20" selected>20問(標準)</option>
+        <option value="all">全問(総仕上げ)</option>
+      </select>
+    </div>
+    <button class="btn-main" id="btn-start">テスト開始</button>
+    ${histHtml}
+  `;
+  $("btn-start").onclick = startQuiz;
+}
+
+function startQuiz(reviewQuestions) {
+  let pool;
+  if (Array.isArray(reviewQuestions)) {
+    pool = reviewQuestions;
+  } else {
+    const units = [...document.querySelectorAll(".u-chk:checked")].map(c => c.value);
+    const types = [...document.querySelectorAll(".t-chk:checked")].map(c => c.value);
+    if (!units.length || !types.length) {
+      alert("単元と問題形式を1つ以上選んでください。");
+      return;
+    }
+    pool = QUESTIONS.filter(q => units.includes(q.unit) && types.includes(q.type));
+    if (!pool.length) {
+      alert("選んだ条件に合う問題がありません。");
+      return;
+    }
+    const n = $("q-count").value;
+    pool = shuffle(pool);
+    if (n !== "all") pool = pool.slice(0, Number(n));
+  }
+  quiz = Array.isArray(reviewQuestions) ? shuffle(pool) : pool;
+  idx = 0;
+  results = [];
+  $("screen-start").style.display = "none";
+  $("screen-result").style.display = "none";
+  $("screen-quiz").style.display = "";
+  renderQuestion();
+}
+
+/* ---------- 出題画面 ---------- */
+function renderQuestion() {
+  const q = quiz[idx];
+  const pct = Math.round(idx / quiz.length * 100);
+  let body = "";
+
+  if (q.type === "choice") {
+    const order = shuffle(q.choices.map((_, i) => i));
+    body = order.map(i =>
+      `<button class="choice-btn" data-i="${i}">${q.choices[i]}</button>`).join("");
+  } else if (q.type === "term") {
+    body = `
+      <input type="text" id="term-input" placeholder="答えを入力(用語)" autocomplete="off">
+      <div class="nextbar" style="display:flex;gap:8px">
+        <button class="btn-sub" id="term-check" style="flex:2">答え合わせ</button>
+        <button class="btn-ghost" id="term-giveup" style="flex:1">わからない</button>
+      </div>`;
+  } else if (q.type === "order") {
+    orderPick = [];
+    body = `
+      <p class="num">古い順にタップして並べてください。</p>
+      <div class="order-picked" id="order-picked"></div>
+      <div class="order-pool" id="order-pool"></div>
+      <button class="btn-ghost" id="order-reset" style="margin-top:8px">やり直す</button>`;
+  } else if (q.type === "essay") {
+    body = `
+      <textarea id="essay-input" placeholder="自分の言葉で書いてみましょう"></textarea>
+      <button class="btn-sub nextbar" id="essay-show" style="width:100%">模範解答を見る</button>`;
+  }
+
+  $("screen-quiz").innerHTML = `
+    <div class="card">
+      <div class="num">第${idx + 1}問 / 全${quiz.length}問</div>
+      <div class="progress-outer"><div class="progress-inner" style="width:${pct}%"></div></div>
+      <span class="tag tag-unit">${UNITS[q.unit]}</span><span class="tag tag-type">${TYPES[q.type]}</span>
+      <div class="qtext">${q.q}</div>
+      ${body}
+      <div id="fb"></div>
+    </div>
+    <button class="btn-ghost" id="btn-quit" style="width:100%">中断して結果を見る</button>
+  `;
+  $("btn-quit").onclick = () => showResult(true);
+
+  if (q.type === "choice") {
+    document.querySelectorAll(".choice-btn").forEach(btn => {
+      btn.onclick = () => judgeChoice(q, Number(btn.dataset.i), btn);
+    });
+  } else if (q.type === "term") {
+    $("term-check").onclick = () => judgeTerm(q, $("term-input").value);
+    $("term-giveup").onclick = () => judgeTerm(q, null);
+    $("term-input").addEventListener("keydown", e => {
+      if (e.key === "Enter") judgeTerm(q, $("term-input").value);
+    });
+    $("term-input").focus();
+  } else if (q.type === "order") {
+    renderOrderPool(q);
+    $("order-reset").onclick = () => { orderPick = []; renderOrderPool(q); };
+  } else if (q.type === "essay") {
+    $("essay-show").onclick = () => showEssayModel(q);
+  }
+}
+
+/* --- 4択 --- */
+function judgeChoice(q, picked, btn) {
+  const ok = picked === q.answer;
+  document.querySelectorAll(".choice-btn").forEach(b => {
+    b.disabled = true;
+    if (Number(b.dataset.i) === q.answer) b.classList.add("correct");
+  });
+  if (!ok) btn.classList.add("wrong");
+  finishQuestion(q, ok ? 1 : 0, ok ? null : (picked === null ? "(無回答)" : q.choices[picked]));
+}
+
+/* --- 一問一答 --- */
+function normalize(s) {
+  return (s || "")
+    .trim()
+    .replace(/[Ａ-Ｚａ-ｚ０-９]/g, c => String.fromCharCode(c.charCodeAt(0) - 0xFEE0))
+    .replace(/[\s　・=＝\-ー–—「」『』()（）.。、]/g, "")
+    .toLowerCase();
+}
+function judgeTerm(q, input) {
+  const user = input === null ? null : input.trim();
+  const ok = user !== null && q.answers.some(a => normalize(a) === normalize(user)) && normalize(user) !== "";
+  $("term-check").disabled = true;
+  $("term-giveup").disabled = true;
+  $("term-input").disabled = true;
+  if (ok) {
+    finishQuestion(q, 1, null);
+  } else {
+    // 表記ゆれ救済:不正解判定でも本人が合っていると判断したら正解にできる
+    finishQuestion(q, 0, user === null ? "(わからない)" : user, true);
+  }
+}
+
+/* --- 年代整序 --- */
+function renderOrderPool(q) {
+  const remaining = shuffleStable(q.events).filter(e => !orderPick.includes(e));
+  $("order-picked").innerHTML = orderPick.map((e, i) =>
+    `<span>${i + 1}. ${esc(e)}</span>`).join("");
+  $("order-pool").innerHTML = remaining.map(e =>
+    `<button class="choice-btn" data-e="${esc(e)}">${esc(e)}</button>`).join("");
+  document.querySelectorAll("#order-pool .choice-btn").forEach(btn => {
+    btn.onclick = () => {
+      orderPick.push(btn.dataset.e);
+      if (orderPick.length === q.events.length) {
+        renderOrderPool(q);
+        judgeOrder(q);
+      } else {
+        renderOrderPool(q);
+      }
+    };
+  });
+}
+// 同じ問題内では並び順が変わらないように、文字列に基づく疑似シャッフル
+function shuffleStable(events) {
+  return events.slice().sort((a, b) => hash(a + idx) - hash(b + idx));
+}
+function hash(s) {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) { h = (h * 31 + s.charCodeAt(i)) | 0; }
+  return h;
+}
+function judgeOrder(q) {
+  const ok = q.events.every((e, i) => orderPick[i] === e);
+  $("order-reset").style.display = "none";
+  finishQuestion(q, ok ? 1 : 0, ok ? null : orderPick.map((e, i) => `${i + 1}.${e}`).join(" / "));
+}
+
+/* --- 記述 --- */
+function showEssayModel(q) {
+  $("essay-show").style.display = "none";
+  $("essay-input").disabled = true;
+  const fb = $("fb");
+  fb.innerHTML = `
+    <div class="model-box">
+      <div class="mh">【模範解答】</div>
+      ${esc(q.model)}
+      <div class="mh" style="margin-top:8px">【採点ポイント】</div>
+      <ul style="margin:4px 0 0;padding-left:20px">${q.points.map(p => `<li>${esc(p)}</li>`).join("")}</ul>
+      ${q.exp ? `<div class="exp" style="margin-top:8px;border-top:1px dashed #bbb;padding-top:6px">💡 ${esc(q.exp)}</div>` : ""}
+    </div>
+    <p style="margin:12px 0 4px;font-weight:bold">自己採点してください:</p>
+    <div class="grade-btns">
+      <button class="g-ok" id="g-ok">◎ 書けた</button>
+      <button class="g-half" id="g-half">△ 半分</button>
+      <button class="g-ng" id="g-ng">✕ 書けず</button>
+    </div>`;
+  const userText = $("essay-input").value;
+  $("g-ok").onclick = () => afterEssay(q, 1, userText);
+  $("g-half").onclick = () => afterEssay(q, 0.5, userText);
+  $("g-ng").onclick = () => afterEssay(q, 0, userText);
+}
+function afterEssay(q, score, userText) {
+  document.querySelectorAll(".grade-btns button").forEach(b => b.disabled = true);
+  results.push({ q, score, userAns: score === 1 ? null : (userText || "(未記入)") });
+  const fb = $("fb");
+  fb.insertAdjacentHTML("beforeend", `<button class="btn-main nextbar" id="btn-next">${idx + 1 < quiz.length ? "次の問題へ" : "結果を見る"}</button>`);
+  $("btn-next").onclick = nextQuestion;
+  $("btn-next").scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+/* --- 共通:判定表示と次へ --- */
+function finishQuestion(q, score, userAns, allowOverride) {
+  results.push({ q, score, userAns });
+  const ok = score === 1;
+  const fb = $("fb");
+  let answerLine = "";
+  if (q.type === "term") answerLine = `<div>正解:<b>${esc(q.answers[0])}</b>${q.answers.length > 1 ? `(別解:${q.answers.slice(1).map(esc).join("、")})` : ""}</div>`;
+  if (q.type === "choice") answerLine = `<div>正解:<b>${esc(q.choices[q.answer])}</b></div>`;
+  if (q.type === "order") answerLine = `<div>正解:${q.events.map((e, i) => `<div>${i + 1}. ${esc(e)}</div>`).join("")}</div>`;
+
+  fb.innerHTML = `
+    <div class="feedback ${ok ? "ok" : "ng"}">
+      <div class="verdict">${ok ? "○ 正解!" : "✕ 不正解"}</div>
+      ${answerLine}
+      <div class="exp">💡 ${esc(q.exp)}</div>
+    </div>
+    ${!ok && allowOverride ? `<button class="btn-ghost nextbar" id="btn-override" style="width:100%">表記ゆれ等で実は合っていた → 正解にする</button>` : ""}
+    <button class="btn-main nextbar" id="btn-next">${idx + 1 < quiz.length ? "次の問題へ" : "結果を見る"}</button>`;
+  if (!ok && allowOverride) {
+    $("btn-override").onclick = () => {
+      results[results.length - 1].score = 1;
+      results[results.length - 1].userAns = null;
+      $("btn-override").disabled = true;
+      $("btn-override").textContent = "正解として記録しました";
+    };
+  }
+  $("btn-next").onclick = nextQuestion;
+  $("btn-next").scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function nextQuestion() {
+  idx++;
+  if (idx < quiz.length) renderQuestion();
+  else showResult(false);
+}
+
+/* ---------- 結果画面 ---------- */
+function showResult(aborted) {
+  if (!results.length) { backToStart(); return; }
+  $("screen-quiz").style.display = "none";
+  $("screen-result").style.display = "";
+
+  const total = results.length;
+  const score = results.reduce((s, r) => s + r.score, 0);
+  const pct = Math.round(score / total * 100);
+
+  // 単元別集計
+  const perUnit = {};
+  for (const key of Object.keys(UNITS)) perUnit[key] = { got: 0, tot: 0 };
+  results.forEach(r => { perUnit[r.q.unit].got += r.score; perUnit[r.q.unit].tot += 1; });
+
+  const bars = Object.entries(perUnit).filter(([, v]) => v.tot > 0).map(([k, v]) => {
+    const p = Math.round(v.got / v.tot * 100);
+    return `<div class="bar-row">
+      <div class="bar-label">${UNITS[k]}</div>
+      <div class="bar-outer"><div class="bar-inner" style="width:${p}%"></div></div>
+      <div class="bar-pct">${p}%</div>
+    </div>`;
+  }).join("");
+
+  const wrongs = results.filter(r => r.score < 1);
+  const wrongHtml = wrongs.length
+    ? `<div class="card"><h2>間違えた問題の復習リスト</h2>` +
+      wrongs.map(r => {
+        let ans = "";
+        if (r.q.type === "choice") ans = r.q.choices[r.q.answer];
+        else if (r.q.type === "term") ans = r.q.answers[0];
+        else if (r.q.type === "order") ans = r.q.events.join(" → ");
+        else ans = r.q.model;
+        return `<div class="wrong-item">
+          <div class="wq">Q. ${r.q.q}</div>
+          ${r.userAns ? `<div style="color:var(--ng)">あなたの答え:${esc(r.userAns)}</div>` : ""}
+          <div class="wa">正解:${esc(ans)}</div>
+        </div>`;
+      }).join("") + `</div>`
+    : "";
+
+  // 弱点コメント
+  const worst = Object.entries(perUnit).filter(([, v]) => v.tot > 0)
+    .sort((a, b) => (a[1].got / a[1].tot) - (b[1].got / b[1].tot))[0];
+  let advice;
+  if (pct >= 90) advice = "素晴らしい。仕上げに記述問題だけをもう1周して、用語を「説明できる」状態にしておこう。";
+  else if (pct >= 70) advice = `合格ライン。あと一歩は「${UNITS[worst[0]]}」の復習から。間違えた問題の解説を読み直して、もう一度挑戦しよう。`;
+  else if (pct >= 50) advice = `まず「${UNITS[worst[0]]}」を教科書ガイドで読み直してから再挑戦しよう。年代よりも「因果の流れ」を先に固めるのがコツ。`;
+  else advice = `焦らなくて大丈夫。まずは4択と一問一答だけに絞って基本用語を固め、それから整序・記述に進もう。特に「${UNITS[worst[0]]}」を重点的に。`;
+
+  $("screen-result").innerHTML = `
+    <div class="card">
+      <h2>結果${aborted ? "(中断)" : ""}</h2>
+      <div class="score-big">${score} / ${total} 点</div>
+      <div style="text-align:center;font-size:1.2rem;font-weight:bold;color:${pct >= 70 ? "var(--ok)" : "var(--ng)"}">${pct}%</div>
+      <div style="margin-top:14px">${bars}</div>
+      <div style="margin-top:14px;background:#fbf6e9;border-radius:10px;padding:12px 14px;font-size:.95rem">🎓 先生からのアドバイス:${advice}</div>
+    </div>
+    ${wrongHtml}
+    ${wrongs.length ? `<button class="btn-sub" id="btn-retry-wrong" style="width:100%;margin-bottom:10px">間違えた問題だけ再挑戦(${wrongs.length}問)</button>` : ""}
+    <button class="btn-main" id="btn-home">トップに戻る</button>
+  `;
+  if (wrongs.length) {
+    $("btn-retry-wrong").onclick = () => startQuiz(wrongs.map(r => r.q));
+  }
+  $("btn-home").onclick = backToStart;
+
+  if (!aborted) saveHistory(score, total, pct);
+  window.scrollTo({ top: 0 });
+}
+
+function backToStart() {
+  $("screen-result").style.display = "none";
+  $("screen-quiz").style.display = "none";
+  $("screen-start").style.display = "";
+  renderStart();
+  window.scrollTo({ top: 0 });
+}
+
+/* ---------- 成績の保存 ---------- */
+function loadHistory() {
+  try { return JSON.parse(localStorage.getItem(LS_KEY)) || []; }
+  catch { return []; }
+}
+function saveHistory(score, total, pct) {
+  const hist = loadHistory();
+  const d = new Date();
+  const date = `${d.getMonth() + 1}/${d.getDate()} ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+  hist.push({ date, score: Math.round(score * 10) / 10, total, pct });
+  try { localStorage.setItem(LS_KEY, JSON.stringify(hist.slice(-30))); } catch {}
+}
+
+renderStart();
+</script>
+</body>
+</html>
