@@ -1,0 +1,3 @@
+id,reference_and_version,requirement_id,requirement_summary,applicability_and_reason,implementation_location,test_method,command_or_procedure,expected_result,actual_result,status,evidence_path,reviewer,remaining_risk
+V-001,OWASP ASVS 5.0.0,原文照合待ち,APIの認可をサーバーで確認,複数職員で利用するため,未実装,一般職員で管理APIを直接呼ぶ,未実行,権限外操作は拒否,未実行,未検証,なし,未設定,未評価
+V-002,NIST SSDF SP 800-218 v1.1,原文照合待ち,変更をテストと証跡で検証,変更時の品質管理のため,未実装,CIでテストを実行,未実行,必須テストが成功,未実行,未検証,なし,未設定,未評価
