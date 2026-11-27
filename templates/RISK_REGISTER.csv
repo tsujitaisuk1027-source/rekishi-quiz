@@ -1,0 +1,3 @@
+risk_id,asset_or_process,scenario,cause,likelihood_1to5,impact_1to5,score,patient_safety_or_legal_critical,treatment,owner,due_date,control,residual_risk,verification_evidence,status
+R-001,認証,一般職員が管理者の情報にアクセス,API側の認可漏れ,3,5,15,要判定,低減,未設定,,すべてのAPIで権限チェック,未評価,未実施,未着手
+R-002,データベース,誤操作・故障で業務データ消失,バックアップ不備,3,5,15,要判定,低減,未設定,,別保存先バックアップと復元試験,未評価,未実施,未着手
