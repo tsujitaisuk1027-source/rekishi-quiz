@@ -1,0 +1,58 @@
+name: Development gate
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+permissions:
+  contents: read
+jobs:
+  branch-policy:
+    name: Branch naming
+    runs-on: ubuntu-latest
+    env:
+      PR_BRANCH: ${{ github.head_ref }}
+    steps:
+      - name: Validate branch naming
+        shell: bash
+        run: |
+          set -eu
+          valid() { [[ "$1" =~ ^(feat|fix|security|test|docs|refactor|chore|ci|hotfix)/PB-[0-9]+-[a-z0-9]+(-[a-z0-9]+)*$ ]]; }
+          valid feat/PB-012-login
+          valid ci/PB-014-build
+          if valid bad-branch || valid feat/login; then exit 1; fi
+          if ! valid "$PR_BRANCH"; then
+            echo "::error::Use type/PB-123-short-description."
+            exit 1
+          fi
+  app-check:
+    name: Quiz syntax check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Check inline JavaScript
+        run: |
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          import pathlib, subprocess, tempfile
+          class Scripts(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.inside = False
+                  self.scripts = []
+              def handle_starttag(self, tag, attrs):
+                  if tag == 'script':
+                      self.inside = 'src' not in dict(attrs)
+                      if self.inside: self.scripts.append('')
+              def handle_endtag(self, tag):
+                  if tag == 'script': self.inside = False
+              def handle_data(self, data):
+                  if self.inside: self.scripts[-1] += data
+          parser = Scripts()
+          parser.feed(pathlib.Path('index.html').read_text(encoding='utf-8'))
+          if not parser.scripts: raise SystemExit('No inline scripts found')
+          with tempfile.TemporaryDirectory() as tmp:
+              for i, code in enumerate(parser.scripts):
+                  p = pathlib.Path(tmp) / f'script-{i}.js'
+                  p.write_text(code, encoding='utf-8')
+                  subprocess.run(['node', '--check', str(p)], check=True)
+          print('Inline JavaScript syntax passed')
+          PY
